@@ -4,7 +4,7 @@ const FL_SPAN = Float32Array.BYTES_PER_ELEMENT;
 
 let _gl;
 let currentShader; 
-let shaderPrograms;
+let shaderPrograms = { };
 
 export async function init(gl) {
     _gl = gl;
@@ -26,9 +26,9 @@ export function drawTexture(texture, buffer, transform, projection, tint = [1, 1
 }
 //initialization of shader programs 
 async function loadShaderPrograms( ) {
-    const config = await GameSystem.loadJSON('/shaders/config.json');
+    const config = await GameSystem.Methods.loadJSON('/assets/shader/config.json');
     for(const shaderName in config) {
-        shaderPrograms[shaderNAme] = await compileShader(_gl, config[shaderName]);
+        shaderPrograms[shaderName] = await compileShader(_gl, config[shaderName]);
     }
 }
 

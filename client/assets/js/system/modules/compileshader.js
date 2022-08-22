@@ -10,12 +10,12 @@ export default function compileShader(gl, src) {
     }
 
     const step03_get_shaders = async obj => {
-        const vertex = await GameSystem.loadText(obj.vertex);
-        const fragment = await GameSystem.loadText(obj.fragment);
+        const vertex = await GameSystem.Methods.loadText(obj.vertex);
+        const fragment = await GameSystem.Methods.loadText(obj.fragment);
         return step04_link_shaders(vertex, fragment);
     }
 
-    const step04_link_shaders(vertex, fragment) {
+    const step04_link_shaders = (vertex, fragment) => {
         const program = gl.createProgram( );
         gl.attachShader(program, generateShader(gl, vertex, gl.VERTEX_SHADER));
         gl.attachShader(program, generateShader(gl, fragment, gl.FRAGMENT_SHADER));
@@ -28,8 +28,8 @@ export default function compileShader(gl, src) {
     }
 
     const step05_package_program = (program, vertex, fragment) => {
-        const attributes = getAttributes(vertex, fragment);
-        const uniforms = getUniforms(vertex, fragment);
+        const attributes = getAttributes(gl, program, vertex, fragment);
+        const uniforms = getUniforms(gl, program, vertex, fragment);
         return {
             program: program, 
             attributes: attributes,
@@ -46,7 +46,6 @@ const findParameter = (text, parameter) => {
     const results = text.match(regex);
     const params  =  results ? results.map( x => x.substring(x.lastIndexOf(' ') + 1, x.length - 1)) : [];
     return params;
-  }
 }
 
 const generateShader = (gl, src, type) => {
@@ -54,20 +53,22 @@ const generateShader = (gl, src, type) => {
     gl.shaderSource(shader, src);
     gl.compileShader(shader);
     if(gl.getShaderParameter(shader, gl.COMPILE_STATUS)) return shader;
-    console.error(text,'\n');
+    console.error(src,'\n');
     throw `Could not compile shader [${type}].\n${gl.getShaderInfoLog(shader)}`;
 }
 
-const getAttributes = (program, vertex, fragment) => {
+const getAttributes = (gl, program, vertex, fragment) => {
     let keys = [].concat(findParameter(vertex, 'attribute'), findParameter(fragment, 'attribute'));
     let source = [...new Set(keys).values( )];
     let result = { };
-    for(const key of keys) result[key] = gl.getAttribLocation(program, key);
+    for(const key of source) result[key] = gl.getAttribLocation(program, key);
+    return result;
 }
 
-const getUniforms = (program, vertex, fragment) => {
+const getUniforms = (gl, program, vertex, fragment) => {
     let keys = [].concat(findParameter(vertex, 'uniform'), findParameter(fragment, 'uniform'));
     let source = [...new Set(keys).values( )];
     let result = { };
-    for(const key of keys) result[key] = gl.getUniformLocation(program, key);
+    for(const key of source) result[key] = gl.getUniformLocation(program, key);
+    return result;
 }

@@ -143,7 +143,8 @@ export class GameObject extends State {
     get y( ) {return this.position[1]}
     set y(n) {this.position[1] = n}
 
-    get width( ) {return this.size[]} 
+    get width( ) {return this.size[0]} 
+    get height( ) {return this.size[1]} 
 
     assignToBuffer(name, typedArray, length) {
         let array = Object.defineProperty(this, name, { value : 

@@ -3,6 +3,8 @@ body, html {
     padding: 0;
     width: 100vw;
     height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 body {
@@ -16,4 +18,17 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+}
+
+div {
+    position: relative;
+}
+
+div.game {
+    background: black;
+    aspect-ratio: 16/9;
+}
+
+canvas {
+    display: block;
 }
