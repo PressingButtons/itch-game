@@ -1,4 +1,4 @@
-export function init( ) {
-    GameSystem.Screen.init(document.getElementById('gameview'));
-    GameSystem.Graphics.init(GameSystem.Screen.gl);   
+export async function init( ) {
+    Malestrom.Screen.init(document.getElementById('gameview'));
+    Malestrom.Graphics.init(Malestrom.Screen.gl);   
 }

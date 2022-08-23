@@ -5,10 +5,13 @@ const FL_SPAN = Float32Array.BYTES_PER_ELEMENT;
 let _gl;
 let currentShader; 
 let shaderPrograms = { };
+let textureBuffer;
+
 
 export async function init(gl) {
     _gl = gl;
-    _gl.viewport(...GameSystem.VIEW_PORT);
+    _gl.viewport(...Malestrom.VIEW_PORT);
+    textureBuffer = useBuffer(gl.createBuffer( ), [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0]);
     await loadShaderPrograms( );
 }
 
@@ -26,11 +29,16 @@ export function drawTexture(texture, buffer, transform, projection, tint = [1, 1
 }
 //initialization of shader programs 
 async function loadShaderPrograms( ) {
-    const config = await GameSystem.Methods.loadJSON('/assets/shader/config.json');
+    const config = await Malestrom.Methods.loadJSON('/assets/shader/config.json');
     for(const shaderName in config) {
         shaderPrograms[shaderName] = await compileShader(_gl, config[shaderName]);
     }
 }
+
+export { 
+    textureBuffer as SQR_TEXTURE_BUFFER,
+};
+
 
 //activate attribute 
 function activateAttribute(attr, size, stride, offset) {
@@ -52,8 +60,8 @@ function activateTexture(index, uniform, texture, repeat) {
 
 //set bind and set buffer
 function useBuffer(buffer, bufferData) {
-    _gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-    if(bufferData) gl.bufferData(gl.ARRAY_BUFFER, bufferData, gl.STATIC_DRAW);
+    _gl.bindBuffer(_gl.ARRAY_BUFFER, buffer)
+    if(bufferData) _gl.bufferData(_gl.ARRAY_BUFFER, bufferData, _gl.STATIC_DRAW);
     return buffer;
 }
 

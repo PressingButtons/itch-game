@@ -12,12 +12,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 #overlay {
     position: absolute;
     width: 100%;
     height: 100%;
+}
+
+#overlay .content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div {
@@ -31,4 +40,41 @@ div.game {
 
 canvas {
     display: block;
+}
+
+.mainmenu {
+    width: 50%;
+    height: 90%;
+    min-width: 500px;
+    display: flex;
+    flex-flow: column;
+}
+
+.mainmenu header {
+    font-size: 1.5em;
+}
+
+.mainmenu > section {
+    width: 100%;
+    height: 100%;
+}
+
+.mainmenu .options {
+    border: 1px solid red;
+    flex:1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainmenu .options p {
+    flex:1;
+    cursor: pointer;
+    text-align: center;
+    padding: 12px;
+}
+
+.mainmenu .options p:hover {
+    background-color: red;
 }

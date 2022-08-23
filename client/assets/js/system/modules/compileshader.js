@@ -6,12 +6,12 @@ export default function compileShader(gl, src) {
     }
 
     const step02_load_config = url => {
-        return GameSystem.loadJSON(url);
+        return Malestrom.loadJSON(url);
     }
 
     const step03_get_shaders = async obj => {
-        const vertex = await GameSystem.Methods.loadText(obj.vertex);
-        const fragment = await GameSystem.Methods.loadText(obj.fragment);
+        const vertex = await Malestrom.Methods.loadText(obj.vertex);
+        const fragment = await Malestrom.Methods.loadText(obj.fragment);
         return step04_link_shaders(vertex, fragment);
     }
 

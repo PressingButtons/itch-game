@@ -6,7 +6,15 @@ export function loadText(url) {
     return fetch(url).then(res => res.text( ));
 }
 
-export function loadImage(url, canvas = false) {
+export function loadImageFromURL(url, canvas = false) {
+    return fetch(url).then(res => res.blob( )).then(loadImageFromBlob).then(image => {
+        if(!canvas) return image; 
+        return imageToCanvas(image);
+    });
+}
+
+export function loadImageFromBlob(blob, canvas = false) {
+    const url = URL.createObjectURL(blob);
     return new Promise((resolve, reject) => {
         const img = new Image( );
         img.onload = event => {
@@ -17,8 +25,10 @@ export function loadImage(url, canvas = false) {
         img.onerror = event => {
             reject(event);
         }
+        img.src = url;
     });
 }
+
 
 function imageToCanvas(image) {
     const canvas = document.createElement('canvas');

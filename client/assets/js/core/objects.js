@@ -48,7 +48,7 @@ export class ListenerObject extends EventTarget {
 
 export class State extends ListenerObject {
 
-    #states = new Set( );
+    #states = new Map( );
     #current;
     #root;
     #parent;
@@ -75,7 +75,7 @@ export class State extends ListenerObject {
     #setTransition(name, stateConstructor) {
         const state = new stateConstructor(this, this.root);
         this.bindEvent(name, event => this.switchState(state));
-        this.#states.add(state);
+        this.#states.set(state.name, state);
     }
 
     currentState(deep = false) {
@@ -90,14 +90,27 @@ export class State extends ListenerObject {
     exitState(state) { };
 
     switchState(state) {
-        if(!this.#current.transitions.has(state.id)) return;
+        if(!this.#current.transitions.has(state.name)) return;
         this.#current.exitState(state);
         this.state.enterState(this.#current);
         this.#current = state;
     }
 
     addTransition(...transitions) {
-        for(const detail of transition) this.#setTransition(detail.name, detail.state);
+        for(const detail of transitions) this.#setTransition(detail.name, detail.state);
+    }
+
+    getState(name) {
+        return this.#states.get(name);
+    }
+
+
+    //force transition to avaiable state 
+    setCurrent(state) {
+        if(!this.#states.has(state.name)) throw `Error, provided state(${state.name}) is not applicable to state(${this.name})`;     
+        if(this.#current) this.#current.exitState( );
+        this.#current = state;
+        this.#current.enterState( );
     }
 
     signal(transition) {
