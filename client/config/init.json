@@ -1,15 +1,14 @@
 {
-    frames_per_second: 60,
-    time_listiings: [30, 60, 90, "infinite"],
-    default_time: 1,
-    current_time: 1,
-    resolution: [16, 9],
-    viewport: [640, 360, 1280, 720],
-    images: {
-        "map_source": { type: 'image', url: '/assets/stage/map.webp'},
-        "tiles" : { type: 'image', url: '/assets/stage/tiles.webp'},
-    }
-    sounds: {
-
+    "properties": {
+        "frames_per_second": 60,
+        "time_listiings": [30, 60, 90, "infinite"],
+        "default_time": 1,
+        "current_time": 1,
+        "resolution": [16, 9],
+        "viewport": [640, 360, 1280, 720]
+    },
+    "preload": {
+        "map_source": { "type": "image", "url": "./assets/stage/map.webp"},
+        "tiles" : { "type": "image", "url": "./assets/stage/tiles.webp"}
     }
 }

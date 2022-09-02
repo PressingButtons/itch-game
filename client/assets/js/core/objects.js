@@ -134,20 +134,19 @@ export class GameObject extends State {
     static DEFAULT_ALLOCATION = 200;
 
     #data;
-    #bufferOffset;
-    #bytesLeft;
+    #bufferOffset = 0;
 
     constructor(config = { }) {
-        super(config.name || 'gameobject');
+        super(config.name || 'gameobject', config.parent, config.root);
         this.#data = new ArrayBuffer(config.alloc || GameObject.DEFAULT_ALLOCATION);
-        this.assignToBuffer('position', Int16Array, 2);
+        this.assignToBuffer('position', Int16Array,3);
         this.assignToBuffer('size', Int16Array, 2);
-        this.width = config.width || 1;
-        this.height = config.height || 1;
+        this.size[0] = config.width || 1;
+        this.size[1] = config.height || 1;
     }
 
     get unallocated( ) {
-        return this.#data.length - this.#bufferOffset;
+        return this.#data.byteLength - this.#bufferOffset;
     }
 
     get x( ) {return this.position[0]}
@@ -156,14 +155,32 @@ export class GameObject extends State {
     get y( ) {return this.position[1]}
     set y(n) {this.position[1] = n}
 
+    get z( ) {return this.position[2]}
+    set z(n) {this.position[2] = n}
+
     get width( ) {return this.size[0]} 
     get height( ) {return this.size[1]} 
 
+    get left( ) {return this.x}
+    set left(n) {this.x = n}
+    
+    get right( ) {return this.x + this.width}
+    set right(n) {this.x = n - this.width}
+
+    get top( ) {return this.y}
+    set top(n) {this.y = n}
+
+    get bottom( ) {return this.y + this.height}
+    set bottom(n) {this.y = n - this.height}
+
     assignToBuffer(name, typedArray, length) {
-        let array = Object.defineProperty(this, name, { value : 
+        if(typedArray == Float32Array && this.#bufferOffset % 4 != 0 ) {
+            this.#bufferOffset += this.#bufferOffset % 4;
+        }
+        Object.defineProperty(this, name, { value : 
             new typedArray(this.#data, this.#bufferOffset, length)
         });
-        this.#bufferOffset = array.byteOffset + array.byteLength;
+        this.#bufferOffset = this[name].byteOffset + this[name].byteLength;
     }
 
 }

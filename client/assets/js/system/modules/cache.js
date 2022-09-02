@@ -3,7 +3,7 @@ const static_cache = new Map( );
 const dynamic_cache = new Map( );
 
 export async function preload(data) {
-    for(const key in data.images) loadItem(key, loadList[key], static_cache);
+    for(const key in data) loadItem(key, data[key], static_cache);
 }
 
 async function loadItem(key, src, cache) {
