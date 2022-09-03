@@ -65,13 +65,6 @@ export class State extends ListenerObject {
     get root( ) {return this.#root}
     get parent( ) {return this.#parent}
 
-    get onUpdate( ) {return this.#onUpdate}
-    set onUpdate(func) {this.#onUpdate = func}
-
-    #onUpdate( ) {
-
-    }
-
     #setTransition(name, stateConstructor) {
         const state = new stateConstructor(this, this.root);
         this.bindEvent(name, event => this.switchState(state));
@@ -104,6 +97,8 @@ export class State extends ListenerObject {
         return this.#states.get(name);
     }
 
+    onUpdate( );
+
 
     //force transition to avaiable state 
     setCurrent(state) {
@@ -118,7 +113,7 @@ export class State extends ListenerObject {
     }
 
     update(config) {
-        this.#onUpdate(config);
+        this.onUpdate(config);
         if(this.#current != this) this.#current.update(config);
     }
 

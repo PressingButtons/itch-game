@@ -1,4 +1,5 @@
-import compileShader from './compileshader.js';
+import { activateAttribute, activateTexture, createBuffer } from './glmethods.js';
+import compileShader from './modules/compileshader.js';
 
 const FL_SPAN = Float32Array.BYTES_PER_ELEMENT;
 
@@ -8,10 +9,10 @@ let shaderPrograms = { };
 let textureBuffer;
 
 
-export async function init(_gl) {
-    gl = _gl;
+export async function init( ) {
+    gl = Malestrom.gl;
     gl.viewport(...Malestrom.VIEW_PORT);
-    textureBuffer = useBuffer(gl.createBuffer( ), [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0]);
+    textureBuffer = createBuffer([0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0]);
     await loadShaderPrograms( );
 }
 
@@ -22,7 +23,7 @@ export function clear(color) {
 
 export function drawMap(mapTexture, tileTexture, map_size, transform, projection, tint = [1, 1, 1, 1], buffer = textureBuffer, vertices = 6) {
     useShader(shaderPrograms.tilemap);
-    useBuffer(buffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     activateAttribute(currentShader.attributes.a_position, 2, 4, 0);
     activateAttribute(currentShader.attributes.a_textCoord, 2, 4, 2);
     activateTexture(0, currentShader.uniforms.u_map_texture, mapTexture);
@@ -37,7 +38,7 @@ export function drawMap(mapTexture, tileTexture, map_size, transform, projection
 
 export function drawSprite(source_texture, color_texture, size, position, transform, projection, tint, buffer = textureBuffer, vertices = 6) {
     useShader(shaderPrograms.sprite);
-    useBuffer(buffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     activateAttribute(currentShader.attributes.a_position, 2, 4, 0);
     activateAttribute(currentShader.attributes.a_textCoord, 2, 4, 2);
     activateTexture(0, currentShader.uniforms.u_source_texture, source_texture);
@@ -50,7 +51,7 @@ export function drawSprite(source_texture, color_texture, size, position, transf
 
 export function drawTexture(texture, transform, projection, tint = [1, 1, 1, 1], repeat = false,  buffer = textureBuffer, vertices = 6) {
     useShader(shaderPrograms.simpleTexture);
-    userBuffer(buffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     activateAttribute(currentShader.attributes.a_position, 2, 4, 0);
     activateAttribute(currentShader.attributes.a_textCoord, 2, 4, 2);
     activateTexture(0, currentShader.uniforms.u_texture, texture, repeat);
@@ -71,31 +72,6 @@ export {
     textureBuffer as SQR_TEXTURE_BUFFER,
 };
 
-
-//activate attribute 
-function activateAttribute(attr, size, stride, offset) {
-    gl.enableVertexAttribArray(attr);
-    gl.vertexAttribPoint(attr, size, gl.FLOAT, false, stride * FL_SPAN, offset * FL_SPAN);
-}
-
-//activate texture 
-//can repeat texture if flag is set accordingly
-function activateTexture(index, uniform, texture, repeat) {
-    gl.activeTexture(gl.TEXTURE0 + index);
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    if(repeat) {
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    }
-    gl.uniform1i(uniform, index);
-}
-
-//set bind and set buffer
-function useBuffer(buffer, bufferData) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-    if(bufferData) gl.bufferData(gl.ARRAY_BUFFER, bufferData, gl.STATIC_DRAW);
-    return buffer;
-}
 
 //performs gl commands if buffer isn't current 
 //to minimize gl calls 
