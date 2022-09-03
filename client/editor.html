@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/editor.css">
+    <title>TileEditor</title>
+</head>
+<body>
+
+    <main>
+        <div id="workspace">
+            <div>
+                <svg class='grided'>
+                    <defs>
+                        <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                            <path d="M 16 0 L 0 0 0 16" fill="none" stroke="gray" stroke-width="0.5"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)"/>
+                </svg>
+                <canvas id="view" width="800" height="480"></canvas>
+            </div>
+        </div>
+        <div id="interface">
+            <!-- File Section -->
+            <section>
+                <header>File</header>
+                <div class="content">
+                    <button>New</button>
+                    <button>Load</button>
+                    <button>Save</button>
+                </div>
+            </section>
+            <!-- Stage Meta-->
+            <section>
+                <header>Stage Meta</header>
+                <div class="content">
+                    <div>
+                        <p>Tilesize</p>
+                        <p>16px</p>
+                    </div>
+                    <div>
+                        <p>Rows x Colunmns</p>
+                        <p>30 x 80</p>
+                    </div>
+                    <div>
+                        <p>Width x Height</p>
+                        <p>800px x 480px</p>
+                    </div>
+                </div>
+
+                <div>
+                    <p>Sky</p>
+                    <select name="sky" id="sky">
+                        <option value="none">None</option>
+                    </select>
+                </div>
+
+            </section>
+            <!-- Tileset -->
+            <section>
+                <header>Tileset</header>
+                <div class="content tileset">
+                    <svg class='grided'>
+                        <defs>
+                            <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="gray" stroke-width="0.5"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)"/>
+                    </svg>
+                    <canvas id="tileset"></canvas>
+                </div>
+            </section>
+
+            <!-- Layers -->
+            <section>
+                <header></header>
+                <div class="content">
+                    <div class="layer meta active">
+                        <canvas id="meta-canvas"></canvas>
+                        <p>Meta Layer</p>
+                        <div>
+                            <button>clear</button>
+                            <button>hide</button>
+                        </div>
+                    </div>
+
+                    <div class="layer far-background">
+                        <canvas id="fbg-canvas" class="thumb"></canvas>
+                        <p>Far Background</p>
+                        <div>
+                            <button>clear</button>
+                            <button>hide</button>
+                        </div>
+                    </div>
+
+                    <div class="layer background">
+                        <canvas id="bg-canvas" class="thumb"></canvas>
+                        <p>Background</p>
+                        <div>
+                            <button>clear</button>
+                            <button>hide</button>
+                        </div>
+                    </div>
+
+                    <div class="layer ground">
+                        <canvas id="g-canvas" class="thumb"></canvas>
+                        <p>Ground</p>
+                        <div>
+                            <button>clear</button>
+                            <button>hide</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+</body>
+</html>

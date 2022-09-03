@@ -1,0 +1,101 @@
+body, html {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+main, section > div.content, #workspace, #interface , section > div.content div{
+    display: flex;
+}
+
+body {
+    background-color: #CCC;
+    font-family: Arial, sans-serif;
+}
+
+section > div.content, #interface {
+    flex-flow: column;
+}
+
+section > div.content {
+    overflow: auto;
+}
+
+section > div.content  div {
+    justify-content: space-between;
+}
+
+section > div.content > button {
+    align-self: flex-start;
+    padding: 6px;
+    min-width: 80px;
+}
+
+section {
+    border-bottom: 1px solid #666;
+    padding: 4px;
+    flex: 1;
+}
+
+section header {
+    font-size: 1.2em;
+    margin: 6px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;;
+}
+
+div {
+    position: relative;
+}
+
+#workspace {
+    flex:1;
+    justify-content: center;
+    align-items: center;
+}
+
+#interface {
+    width: 400px;
+    border-left: 1px solid #666;
+    padding: 12px;
+}
+
+svg {
+    position: absolute;
+    top:0; left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    border: 1px solid #666;
+    image-rendering: pixelated;
+}
+
+
+.layer canvas {
+    width: 80px;
+    height: 30px;
+}
+
+.layer {
+    justify-content: space-around;
+    background-color: #999;
+    border: 1px solid #666;
+    padding: 6px;
+    margin: 1px;
+}
+
+.layer.active , .layer:hover {
+    background-color: #BBB;
+}
+
+.layer canvas {
+    align-self: center;
+}
