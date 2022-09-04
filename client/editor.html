@@ -19,8 +19,13 @@
                         </pattern>
                     </defs>
                     <rect width="100%" height="100%" fill="url(#grid)"/>
+                    <line x1=0% x2 = 100% y1=50% y2 = 50% stroke="red"/>
+                    <line x1=50% x2 = 50% y1=0% y2 = 100% stroke="blue"/>
+                    <rect width="640" height="360" stroke="green" fill="none" x="50%" y="50%" transform="translate(-320, -180)"/> 
+                    <rect width="100%" height="100%" fill="rgba(0, 0, 0, 0)" id="listener"/>
                 </svg>
                 <canvas id="view" width="800" height="480"></canvas>
+                <canvas id="stamp"></canvas>
             </div>
         </div>
         <div id="interface">
@@ -49,13 +54,12 @@
                         <p>Width x Height</p>
                         <p>800px x 480px</p>
                     </div>
-                </div>
-
-                <div>
-                    <p>Sky</p>
-                    <select name="sky" id="sky">
-                        <option value="none">None</option>
-                    </select>
+                    <div>
+                        <p>Sky</p>
+                        <select name="sky" id="sky">
+                            <option value="none">None</option>
+                        </select>
+                    </div>
                 </div>
 
             </section>
@@ -63,15 +67,20 @@
             <section>
                 <header>Tileset</header>
                 <div class="content tileset">
-                    <svg class='grided'>
-                        <defs>
-                            <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
-                                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="gray" stroke-width="0.5"/>
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#grid)"/>
-                    </svg>
-                    <canvas id="tileset"></canvas>
+                    <div class="grided">
+                        <svg>
+                            <defs>
+                                <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                                    <path d="M 16 0 L 0 0 0 16" fill="none" stroke="gray" stroke-width="0.5"/>
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#grid)"/> 
+                            <rect width="16" height="16" fill="none" stroke="none" id='hilite'/>
+                            <rect width="100%" height="100%" fill="rgba(0, 0, 0, 0)" id='listener'/> 
+                        </svg>
+                        <canvas id="tileset"></canvas>
+                        <canvas id="selection_hilites"></canvas>
+                    </div>
                 </div>
             </section>
 
@@ -119,5 +128,8 @@
         </div>
     </main>
 
+    <footer>
+        <script src="./assets/js/editor/main.js" type="module" async defer></script>
+    </footer>
 </body>
 </html>
