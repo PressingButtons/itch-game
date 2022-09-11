@@ -1,4 +1,4 @@
-import GameTexture from "../system/gametexture.js";
+import GameTexture from "../maelstrom/lib/gametexture.js";
 
 export default async function preload( ) {
     Malestrom.tileTexture = new GameTexture(document.getElementById('tileset'));

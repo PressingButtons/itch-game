@@ -1,8 +1,6 @@
 import { activateAttribute, activateTexture, createBuffer } from './glmethods.js';
 import compileShader from './modules/compileshader.js';
 
-const FL_SPAN = Float32Array.BYTES_PER_ELEMENT;
-
 let gl;
 let currentShader; 
 let shaderPrograms = { };

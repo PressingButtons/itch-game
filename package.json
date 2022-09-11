@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "gl-matrix": "^3.4.3",
+    "serve": "^14.0.1"
+  },
+  "name": "malestrom",
+  "version": "1.0.0",
+  "description": "js fighting game ",
+  "main": "/client/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PressingButtons/itch-game.git"
+  },
+  "keywords": [
+    "itch",
+    "malestrom",
+    "js",
+    "fgc",
+    "fighting",
+    "game"
+  ],
+  "author": "Steven Boyd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PressingButtons/itch-game/issues"
+  },
+  "homepage": "https://github.com/PressingButtons/itch-game#readme"
+}

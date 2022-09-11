@@ -2,5 +2,9 @@
     "simpleTexture": {
         "vertex" : "./assets/shader/src/simple_vertex.glsl",
         "fragment": "./assets/shader/src/simple_fragment.glsl"
+    }, 
+    "sprite": {
+        "vertex": "./assets/shader/src/sprite_vertex.glsl",
+        "fragment": "./assets/shader/src/simple_fragment.glsl"
     }
 }

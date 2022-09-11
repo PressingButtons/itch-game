@@ -4,6 +4,8 @@ export default function Plotter( ) {
     const stamp = document.querySelector('#workspace #stamp');
     const tilescale = 1;
     const tilesize = Malestrom.tilesize;
+    let tileset;
+    let indexMin;
 
     stamp.style.borderColor = 'transparent';
 
@@ -18,6 +20,7 @@ export default function Plotter( ) {
 
     const drawTiles = tiles => {
         const size = getSize(tiles.slice( ));
+        indexMin = size.min;
         resizeStamp(size.value);
         for(const tile of tiles) drawTile(tile.split('.').map(x => parseInt(x)).reverse( ), size.min);
     }
@@ -59,6 +62,17 @@ export default function Plotter( ) {
             stamp.style.borderColor = 'transparent';
         }
 
+        if(event.type == 'mousedown') {
+            if(tileset) document.dispatchEvent(new CustomEvent('plot', {
+                detail: {
+                    tiles: tileset,
+                    row: row,
+                    col: col, 
+                    min: indexMin
+                }
+            }))
+        }
+
         stamp.style.left = col * tilesize + 'px';
         stamp.style.top  = row * tilesize + 'px';
 
@@ -66,6 +80,7 @@ export default function Plotter( ) {
 
     const onTileSelect = event => {
         const tiles = event.detail;
+        tileset = tiles;
         drawTiles(tiles);
     }
 
