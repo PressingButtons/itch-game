@@ -7,6 +7,8 @@ const mouseData = {
 
 const gamepads = {};
 
+let gamelistener;
+
 const KeyboardListener = event => {
     const key = event.key.toLowerCase( );
     const value = event.type == 'keydown';
@@ -108,11 +110,14 @@ const setGamepad = (index, source) => {
 }
 
 
-export default function init( ) {
+export default function init(eventListener) {
     document.addEventListener('keydown', KeyboardListener);
     document.addEventListener('keyup', KeyboardListener);
-    Maelstrom.GameScreen.applyListeners(MouseListener);
-    Maelstrom.addEventListener(Maelstrom.Events.GAMEPAD_CONNECTED, onGamepadConnected);
-    Maelstrom.addEventListener(Maelstrom.Events.GAMEPAD_DISCONNECTED, onGamepadDisconnected);
+    eventListener.listenFor('mousedown', 'mousedown', MouseListener);
+    eventListener.listenFor('mousemove', 'mousemove', MouseListener);
+    eventListener.listenFor('mouseout', 'mouseout', MouseListener);
+    eventListener.listenFor('mouseup', 'mouseup', MouseListener);
+    Maelstrom.listenFor(Maelstrom.Events.GAMEPAD_CONNECTED, Maelstrom.Events.GAMEPAD_CONNECTED, onGamepadConnected);
+    Maelstrom.listenFor(Maelstrom.Events.GAMEPAD_DISCONNECTED, Maelstrom.Events.GAMEPAD_DISCONNECTED, onGamepadDisconnected);
     Maelstrom.run('pollgamepads', pollGamepads);
 }

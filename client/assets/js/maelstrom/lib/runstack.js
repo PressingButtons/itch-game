@@ -4,7 +4,7 @@ let id = 0;
 
 const loop = timestamp => {
     if(!lastStep) lastStep = timestamp;
-    const dt = timestamp - step;
+    const dt = timestamp - lastStep;
     for(const entry of stack.values( )) {
         try {
             entry(dt);
@@ -14,35 +14,39 @@ const loop = timestamp => {
             throw 'Error-RunStack: halting run';
         }
     }
-    step = timestamp;
+    lastStep = timestamp;
     id = window.requestAnimationFrame(loop);
 }
 
-Object.defineProperties(Maelstrom, {
+export default function( ) {
 
-    play: {
-        resume: function( ) {
-            id = window.requestAnimationFrame(loop);
-        }
-    }
+    Object.defineProperties(Maelstrom, {
 
-    run: {
-        value: function(name, func) {
-            stack.set(name, func);
-        }
-    },
+        play: {
+            value: function( ) {
+                id = window.requestAnimationFrame(loop);
+            }
+        },
 
-    stop: {
-        value: function(name) {
-            stack.delete(name);
-        }
-    },
+        run: {
+            value: function(name, func) {
+                stack.set(name, func);
+            }
+        },
 
-    stopAll: {
-        value: function( ) {
-            window.cancelAnimationFrame(id);
-            lastStep = null;
-        }
-    },
+        stop: {
+            value: function(name) {
+                stack.delete(name);
+            }
+        },
 
-})
+        stopAll: {
+            value: function( ) {
+                window.cancelAnimationFrame(id);
+                lastStep = null;
+            }
+        },
+
+    })
+
+}

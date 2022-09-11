@@ -92,7 +92,6 @@ const drawSprite = (sprite, index, transform, projection, tint = [1, 1, 1, 1]) =
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     const matrices = sprite.getCellMatrices(index, ...transform);
     matrices.u_projection = projection;
-    console.log(matrices);
     setBuffer(textureBuffer);
     setMatrices(matrices);
     setAttributes(simpleAttributes);

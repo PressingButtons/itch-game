@@ -3,7 +3,8 @@ import Camera from './objects/camera.js';
 import Sprite from './objects/sprite.js';
 import Cache from './lib/cache.js';
 import EventListener from './objects/eventlistener.js';
-//import InputSystem from './lib/input.js';
+import defineRunstack from './lib/runstack.js';
+import InputSystem from './lib/input.js';
 import * as Assets from './lib/assets.js';
 import * as Matrices from './lib/workmatrices.js';
 import * as Events from './lib/events.js'
@@ -24,7 +25,10 @@ Object.defineProperties(Maelstrom, {
         value: async function(canvas) {
             await Graphics.init(canvas);
             Cache.init( );
-            //InputSystem( );
+            Maelstrom.gameContainer = new EventListener(document.querySelector('.game'));
+            defineRunstack( );
+            InputSystem(Maelstrom.gameContainer);
+            Maelstrom.play( );
         }
     }
 })
