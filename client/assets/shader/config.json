@@ -1,10 +1,10 @@
 {
-    "simpleTexture": {
-        "vertex" : "./assets/shader/src/simple_vertex.glsl",
-        "fragment": "./assets/shader/src/simple_fragment.glsl"
+    "standard": {
+        "vertex" : "./assets/shader/src/standard_vertex.glsl",
+        "fragment": "./assets/shader/src/standard_fragment.glsl"
     }, 
-    "sprite": {
-        "vertex": "./assets/shader/src/sprite_vertex.glsl",
-        "fragment": "./assets/shader/src/simple_fragment.glsl"
+    "tilemap": {
+        "vertex": "./assets/shader/src/tile_vertex.glsl",
+        "fragment": "./assets/shader/src/tile_fragment.glsl"
     }
 }

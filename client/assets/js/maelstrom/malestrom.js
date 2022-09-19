@@ -7,7 +7,8 @@ import defineRunstack from './lib/runstack.js';
 import InputSystem from './lib/input.js';
 import * as Assets from './lib/assets.js';
 import * as Matrices from './lib/workmatrices.js';
-import * as Events from './lib/events.js'
+import * as Events from './lib/events.js';
+import * as Tilemap from './lib/tilemap.js';
 
 Object.defineProperty(window, "Maelstrom", {
     value: new EventListener( )
@@ -20,11 +21,15 @@ Object.defineProperties(Maelstrom, {
     Graphics: { value: Graphics },
     Sprite: {value: Sprite},
     Events: {value: Events},
+    Tilemap: {value: Tilemap},
     TILESIZE: {value: 16},
     init: {
         value: async function(canvas) {
             await Graphics.init(canvas);
             Cache.init( );
+            //
+            await Maelstrom.Tilemap.init( );
+            //
             Maelstrom.gameContainer = new EventListener(document.querySelector('.game'));
             defineRunstack( );
             InputSystem(Maelstrom.gameContainer);

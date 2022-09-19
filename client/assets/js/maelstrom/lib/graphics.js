@@ -2,7 +2,7 @@ const shaderLibrary = { };
 
 let currentShader = null, gl = null, textureBuffer = null;
 
-const simpleAttributes = {
+const standardAttributes = {
     a_position: {size: 2, stride: 4, offset: 0},
     a_texCoord: {size: 2, stride: 4, offset: 2}
 }
@@ -75,28 +75,48 @@ const defineShader = (text, type) => {
  * @param {*} vertices 
  */
 
-const drawSimpleTexture = (texture, matrices, tint = [1, 1, 1, 1], repeat = false, vertices = 6) => {
-    useShader(shaderLibrary.simpleTexture);
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+export function drawStandard (texture, matrices, tint = [1, 1, 1, 1], repeat = false, vertices = 6) {
+    useShader(shaderLibrary.standard);
     setBuffer(textureBuffer);
     setMatrices(matrices);
-    setAttributes(simpleAttributes);
+    setAttributes(standardAttributes);
     setTexture(0, currentShader.uniforms.u_texture, texture, repeat);
     gl.uniform4fv(currentShader.uniforms.u_tint, tint);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices);
     clearMatrices(matrices);
 } 
 
-const drawSprite = (sprite, index, transform, projection, tint = [1, 1, 1, 1]) => {
+export function drawSprite (sprite, projection, tint = [1, 1, 1, 1], vertices = 6) {
     useShader(shaderLibrary.sprite);
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    const matrices = sprite.getCellMatrices(index, ...transform);
-    matrices.u_projection = projection;
     setBuffer(textureBuffer);
+    const matrices = Object.assign({u_projection: projection}, sprite.matrices)
     setMatrices(matrices);
     setAttributes(simpleAttributes);
-    setTexture(0, currentShader.uniforms.u_texture, sprite.texture);
+    setTexture(0, currentShader.uniforms.u_base_texture, baseTexture);
+    setTexture(0, currentShader.uniforms.u_palette_texture, paletteTexture);
     gl.uniform4fv(currentShader.uniforms.u_tint, tint);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices);
+    clearMatrices(matrices);
+}
+
+export function drawTilemap(projection) {
+    useShader(shaderLibrary.tilemap);
+    setBuffer(textureBuffer);
+    drawTilemapLayer(0, projection);
+}
+
+const drawTilemapLayer = (layerNum, projection) => {
+    const matrices = Object.assign({u_projection: projection}, Maelstrom.Tilemap.getLayerMatrix(layerNum));
+    const textures = Maelstrom.Tilemap.getTextures( );
+    const range = getRange(matrices.u_texMatrix);
+    console.log(range);
+    setMatrices(matrices);
+    setAttributes(standardAttributes);
+    setTexture(0, currentShader.uniforms.u_map_texture, textures.map.texture);
+    setTexture(1, currentShader.uniforms.u_tile_texture, textures.tile.texture)
+    gl.uniform2fv(currentShader.uniforms.u_map_size, [1280, 512]);
+    gl.uniform2fv(currentShader.uniforms.u_range, range);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 6);
     clearMatrices(matrices);
 }
@@ -129,6 +149,13 @@ const getAttributes = (program, vertex, fragment) => {
     let result = { };
     for(const key of source) result[key] = gl.getAttribLocation(program, key);
     return result;
+}
+
+const getRange = matrix => {
+    return [
+        matrix[0] + matrix[12],
+        matrix[5] + matrix[13]
+    ]
 }
 
 const getUniforms = (program, vertex, fragment) => {
@@ -194,6 +221,10 @@ class GameTexture {
 
     get url( ) {return this.#url; }
 
+    get size( ) {
+        return [this.canvas.width, this.canvas.height]
+    }
+
     clear( ) {
         this.#url = undefined;
         this.canvas.width = 1;
@@ -242,6 +273,8 @@ class GameTexture {
          1, 0, 1, 0
     ]);
     await compileShaders( );
+    gl.canvas.width = 1280;
+    gl.canvas.height = 720;
 }
 
 const clear = color => {
@@ -262,6 +295,7 @@ const useShader = shader=> {
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); 
         currentShader = shader;  
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     } 
     return shader;
 }
@@ -275,8 +309,9 @@ const exportObject = {
     GameTexture: GameTexture,
     init: init,
     clear: clear,
-    drawSimpleTexture: drawSimpleTexture,
-    drawSprite: drawSprite
+    drawStandard: drawStandard,
+    drawSprite: drawSprite,
+    drawTilemap: drawTilemap
 }
 
 export default exportObject;

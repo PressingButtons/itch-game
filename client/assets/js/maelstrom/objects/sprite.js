@@ -1,7 +1,6 @@
 export default class Sprite {
 
     #data = new Uint16Array(6);
-    #fdata = new Float32Array(2);
     #texture;
 
     constructor(texture, width, height, sx = 0, sy = 0, ex = null, ey = null) {
@@ -41,9 +40,9 @@ export default class Sprite {
         return [this.width, this.height, 1]
     }
 
-    #getTranslation(index) {
-        const x = index % this.columns * this.width;
-        const y = Math.floor(index / this.columns) * this.height;
+    #getTranslation(r, c) {
+        const x = c % this.columns * this.width;
+        const y = Math.floor(r / this.columns) * this.height;
 
         return [
             x / this.rect.width,
@@ -52,8 +51,8 @@ export default class Sprite {
         ]
     }
 
-    getCellMatrix(i) {
-        const translation = this.#getTranslation(i);
+    getCellMatrix(rowIndex, colIndex = 0) {
+        const translation = this.#getTranslation(rowIndex, colIndex);
         const scale = [this.width/this.rect.width, this.height/this.rect.height, 1];
         return glMatrix.mat4.fromRotationTranslationScale(Maelstrom.getMatrix( ), [0, 0, 0, 0], translation, scale);
     }
@@ -64,7 +63,7 @@ export default class Sprite {
 
     getCellMatrices(i, x, y, z = 0) {
         return {
-            u_texMatrix: this.getCellMatrix(i),
+            u_texMatrix: this.getCellMatrix(...i),
             u_transform: this.getTransform(x, y, z)
         }
     }
