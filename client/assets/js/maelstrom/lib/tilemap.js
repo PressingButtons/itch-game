@@ -1,5 +1,5 @@
 const MAP_COLUMNS = 80;
-const MAP_ROWS = 32;
+const MAP_ROWS = 45;
 const TILESIZE = 16;
 const LAYER_SIZE = [MAP_COLUMNS * TILESIZE, MAP_ROWS * TILESIZE, 1];
 
@@ -26,7 +26,7 @@ const getTiles = data => {
         collisionMap[row][column] = value;
     }
 
-    return collisionMap
+    return collisionMap;
 }
 
 const getValue = data => {

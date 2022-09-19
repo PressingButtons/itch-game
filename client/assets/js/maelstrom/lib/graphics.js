@@ -115,7 +115,7 @@ const drawTilemapLayer = (layerNum, projection) => {
     setAttributes(standardAttributes);
     setTexture(0, currentShader.uniforms.u_map_texture, textures.map.texture);
     setTexture(1, currentShader.uniforms.u_tile_texture, textures.tile.texture)
-    gl.uniform2fv(currentShader.uniforms.u_map_size, [1280, 512]);
+    gl.uniform2fv(currentShader.uniforms.u_map_size, [1280, 720]);
     gl.uniform2fv(currentShader.uniforms.u_range, range);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 6);
     clearMatrices(matrices);

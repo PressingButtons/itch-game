@@ -3,6 +3,7 @@ class Camera {
     #width;
     #height;
     #position;
+    #scale = 3.2;
 
     constructor(width, height) {
         this.#width = width;
@@ -21,7 +22,7 @@ class Camera {
 
     #getOrtho( ) {
         const canvas = Maelstrom.Graphics.gl.canvas;
-        return glMatrix.mat4.ortho(Maelstrom.getMatrix( ), 0, canvas.width, canvas.height, 0, 1, -1);
+        return glMatrix.mat4.ortho(Maelstrom.getMatrix( ), 0, canvas.width / this.#scale, canvas.height / this.#scale, 0, 1, -1);
     }
 
     get projection( ) {
