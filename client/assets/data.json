@@ -1,0 +1,10 @@
+{
+    "textures": [
+        "images/maps.webp",
+        "images/tiles.webp"
+    ],
+
+    "GameSprites" : {
+        
+    }
+}

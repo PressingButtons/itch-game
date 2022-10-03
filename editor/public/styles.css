@@ -1,0 +1,75 @@
+/*
+    Element Iniitalization 
+*/
+
+html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #222;
+    color: #FEA;
+    font-family: Tahoma;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    padding: 8px;
+    margin: 0;
+}
+
+/*
+    Element Styles 
+*/
+
+body, main {
+    display: flex;
+}
+
+body {
+    flex-flow: column;
+}
+
+main {
+    flex: 1;
+}
+
+/*
+    ID Styles
+*/
+#explorer {
+    width: 230px;
+    background-color: #353535;
+}
+
+#file-directory {
+    padding-left: 6px;
+}
+
+/*
+    classes
+*/
+
+.flex {
+    display: flex;
+}
+
+.folder {
+    cursor: pointer;
+    user-select: none;
+}
+
+.folder li {
+    padding: 4px;
+    list-style-type: none;
+}
+
+.folder p {
+    padding: 4px;
+}
+
+.folder header:hover, .folder li:hover {
+    background-color: #555;
+} 

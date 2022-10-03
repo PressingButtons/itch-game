@@ -52,8 +52,17 @@ class Camera {
         return p3D;
     }
 
+    get x( ) {return this.#position[0];}
+    set x(n) {this.#position[0] = n;}
+
+    get y( ) { return this.#position[1];}
+    set y(n) { this.#position[1] = n;}
+
+    get z( ) { return this.#position[2];}
+    set z(n) { this.#position[2] = n}
+
     reposition(x, y, z = 1) {
-        this.#position = [x, y, z];
+        this.#position = [-x,-y, z];
     }
 
 }

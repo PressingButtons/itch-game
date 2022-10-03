@@ -110,7 +110,6 @@ const drawTilemapLayer = (layerNum, projection) => {
     const matrices = Object.assign({u_projection: projection}, Maelstrom.Tilemap.getLayerMatrix(layerNum));
     const textures = Maelstrom.Tilemap.getTextures( );
     const range = getRange(matrices.u_texMatrix);
-    console.log(range);
     setMatrices(matrices);
     setAttributes(standardAttributes);
     setTexture(0, currentShader.uniforms.u_map_texture, textures.map.texture);

@@ -48,6 +48,10 @@ const exportObject = {
         return map[name];
     },
 
+    getTextures: function( ) {
+        return map;
+    },
+
     clearTextures: function( ) {
         while(usedTex.length > 0) {
             this.freeTexture(usedTex[usedTex.length - 1]);

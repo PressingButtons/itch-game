@@ -45,8 +45,8 @@ const setCollisionMap = i => {
 */
 
 export async function init( ) {
-    mapTexture = await Maelstrom.Cache.loadTexture('stages/maps.webp');
-    tileTexture = await Maelstrom.Cache.loadTexture('stages/tiles.webp');
+    mapTexture = await Maelstrom.Cache.loadTexture('images/maps.webp');
+    tileTexture = await Maelstrom.Cache.loadTexture('images/tiles.webp');
     crop = new Maelstrom.Sprite(mapTexture, MAP_COLUMNS, MAP_ROWS);
 }
 
