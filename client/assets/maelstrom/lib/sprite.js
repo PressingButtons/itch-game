@@ -29,11 +29,7 @@ export default class Sprite {
     cellMatrix(row, column) {
         const translation = [column * this.width, row * this.height, 0];
         const scale = [this.width / this.rect.width, this.height / this.rect.height, 1];
-        return {
-            u_texMatrix: glMatrix.mat4.fromRotationTranslationScale(Maelstrom.Matrix.getMatrix( ), [0, 0, 0, 0], translation, scale),
-            u_transform: glMatrix.mat4.fromScaling(Maelstrom.Matrix.getMatrix( ), [this.width, this.height, 1])
-        }
-
+        return glMatrix.mat4.fromRotationTranslationScale(Maelstrom.Matrix.getMatrix( ), [0, 0, 0, 0], translation, scale);
     }
 
     load(url, width, height, sx = 0, sy = 0, ex = null, ey = null) {

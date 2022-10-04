@@ -1,19 +1,16 @@
 import '../maelstrom/maelstrom.js';
+import { createSpriteDrawRequest, createTilemapDrawRequest } from '../maelstrom/utils.js';
 
 window.onload = async event => {
     await Maelstrom.init(document.getElementById('gameview'));
 
     const sprite = Maelstrom.SpriteLibrary.getSprite('fred');
 
-    let matrices =  sprite.cellMatrix(0, 0);
-    matrices.u_projection = Maelstrom.Camera.projection( );
+    const tilemap = Maelstrom.Tilemap.getMap('Prototype');
 
-    const data = {
-        texture: sprite.texture,
-        repeat: false,
-        tint: [1, 1, 1, 1],
-        matrices: matrices
-    }
+    Maelstrom.Graphics.drawTilemap(tilemap, Maelstrom.Camera.projection( ));
+
+    const data = createSpriteDrawRequest(sprite, 0, 0, 16, 16, 0, Maelstrom.Camera.projection( ), [2, 1, 1, 1])
 
     Maelstrom.Graphics.drawTexture(data);
 
@@ -36,7 +33,7 @@ function onInput(event) {
     const key = event.detail.value.key;
     if(key == 'right') Maelstrom.Camera.x -= 5;
     if(key == 'left') Maelstrom.Camera.x += 5;
-    if(key == 'up') Maelstrom.Camera.y += 5;
+    if(key == 'up') Maelstrom.Camera.y += 5;43
     if(key == 'down') Maelstrom.Camera.y -= 5;
     Maelstrom.Graphics.clear([0.5, 0.5, 0.5, 1.0])
     Maelstrom.Graphics.drawTilemap(Maelstrom.Camera.projection);

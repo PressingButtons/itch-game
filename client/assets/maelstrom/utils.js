@@ -7,6 +7,35 @@ export function converToCanvas(image) {
     return ctx;  
 }
 
+export function createDrawRequest(texture, x, y, z, w, h, texMatrix, projection, tint = [1, 1, 1, 1], repeat = false) {
+    return {
+        texture: texture,
+        matrices: {
+            u_texMatrix: texMatrix, 
+            u_projection: projection,
+            u_transform: glMatrix.mat4.fromRotationTranslationScale(Maelstrom.Matrix.getMatrix( ), [0, 0, 0, 0], [x, y, z], [w, h, 1])
+        },
+        tint: tint,
+        repeat: repeat
+    }
+}
+
+export function createSpriteDrawRequest(sprite, r, c, x, y, z, projection, tint = [1, 1, 1, 1]) {
+    return createDrawRequest(
+        sprite.texture, 
+        x ,y, z, 
+        sprite.width, sprite.height, 
+        sprite.cellMatrix(r, c),
+        projection,
+        tint,
+        false
+    );
+}
+
+export function createTilemapDrawRequest(map, projection) {
+    
+}
+
 export function loadImage(url) {
     return new Promise(function(resolve, reject) {
         const image = new Image( );
@@ -15,3 +44,4 @@ export function loadImage(url) {
         image.src = url;
     });
 }
+

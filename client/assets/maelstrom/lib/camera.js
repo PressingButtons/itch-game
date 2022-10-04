@@ -2,7 +2,7 @@ const size_ref = [1280, 720, 1];
 let rotation = [0, 0, 0, 0];
 let position = [0, 0, 0]; //center of stage
 let bounds = [0, 0, 1280, 720];
-let scale = 1;
+let scale = 4;
 
 const sides = {
     get left( ) { return position[0] - size_ref[0] * scale;},
@@ -28,12 +28,11 @@ const ortho = ( ) => {
 }
 
 export function projection( ) {
-    //const m1 = ortho( );
-    //const m2 = translation( );
-    //const projection = glMatrix.mat4.multiply(Maelstrom.Matrix.getMatrix( ), m1, m2);
-    //Maelstrom.Matrix.releaseMatrices(m1, m2);
-    //return projection;
-    return ortho( );
+    const m1 = ortho( );
+    const m2 = translation( );
+    const projection = glMatrix.mat4.multiply(Maelstrom.Matrix.getMatrix( ), m1, m2);
+    Maelstrom.Matrix.releaseMatrices([m1, m2]);
+    return projection;
 }
 
 export function moveBy(x = 0, y = 0) {
