@@ -7,7 +7,9 @@ const matrices = new Array(NUM_MATRICES).fill(0).map((x, i) => new Float32Array(
 const allocated = [];
 
 export function getMatrix( ) {
-    if(matrices.length == 0) throw 'Error - no open matrices for operation';
+    if(matrices.length == 0) {
+        throw 'Error - no open matrices for operation';
+    }
     const matrix = matrices.pop( );
     allocated.push(matrix);
     return matrix;
@@ -16,6 +18,7 @@ export function getMatrix( ) {
 export function freeMatrix(...matrixList) {
     for(const matrix of matrixList) {
         const index = allocated.indexOf(matrix);
+        console.log(index, "allocated",  allocated, "unallocated",  matrices);
         if(index == -1) throw 'Error - invalid matrix, not a part of matrix cache.';
         allocated.splice(index, 1);
         matrices.push(matrix);

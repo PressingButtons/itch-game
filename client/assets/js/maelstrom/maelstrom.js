@@ -9,10 +9,11 @@ import * as Assets from './lib/assets.js';
 import * as Matrices from './lib/workmatrices.js';
 import * as Events from './lib/events.js';
 import * as Tilemap from './lib/tilemap.js';
+import loadConfig from './lib/load_config.js';
 
 Object.defineProperty(window, "Maelstrom", {
     value: new EventListener( )
-})
+});
 
 Object.defineProperties(Maelstrom, {
     Assets: {value: Assets},
@@ -27,6 +28,8 @@ Object.defineProperties(Maelstrom, {
         value: async function(canvas) {
             await Graphics.init(canvas);
             Cache.init( );
+            await loadConfig( );
+            Cache.init( );
             Maelstrom.gameContainer = new EventListener(document.querySelector('.game'));
             defineRunstack( );
             InputSystem(Maelstrom.gameContainer);
@@ -36,3 +39,4 @@ Object.defineProperties(Maelstrom, {
 })
 
 Object.assign(Maelstrom, Matrices);
+

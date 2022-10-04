@@ -1,0 +1,39 @@
+{
+    "textures": [
+        "images/maps.webp",
+        "images/tiles.webp",
+        "images/fred.webp"
+    ],
+
+    "GameSprites" : {
+        "fred" : {
+            "crop" : [0, 0, 48, 48],
+            "w" : 48,
+            "h" : 48,
+            "animations" : {},
+            "src": "images/fred.webp"
+        },
+        "tilemap" : {
+            "crop" : [0, 0],
+            "w" : 80,
+            "h" : 45,
+            "src": "images/maps.webp"
+        }
+    },
+
+    "Constants" : {
+        "GRAVITY" : 10,
+        "MAP_COLUMNS" : 80,
+        "MAP_ROWS": 45
+    },
+
+    "tilemaps" : {
+        "Prototype" : {
+            "id" : 0,
+            "background" : {
+                "pattern" : true,
+                "src": "images/t-panel.webp"
+            }
+        }
+    }
+}

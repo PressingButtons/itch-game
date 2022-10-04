@@ -107,6 +107,7 @@ export function drawTilemap(projection) {
 }
 
 const drawTilemapLayer = (layerNum, projection) => {
+    console.log(Maelstrom.Tilemap.getLayerMatrix(layerNum));
     const matrices = Object.assign({u_projection: projection}, Maelstrom.Tilemap.getLayerMatrix(layerNum));
     const textures = Maelstrom.Tilemap.getTextures( );
     const range = getRange(matrices.u_texMatrix);
