@@ -36,11 +36,11 @@ export function projection( ) {
 }
 
 export function moveBy(x = 0, y = 0) {
-    data[5] += x;
-    data[6] += y;
+    position[0] += x;
+    position[1] += y;
 }
 
 export function reposition(x, y) {
-    data[5] = x;
-    data[6] = y;
+    position[5] = x;
+    position[6] = y;
 }

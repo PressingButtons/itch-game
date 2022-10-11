@@ -4,15 +4,39 @@ import { createSpriteDrawRequest, createTilemapDrawRequest } from '../maelstrom/
 window.onload = async event => {
     await Maelstrom.init(document.getElementById('gameview'));
 
-    const sprite = Maelstrom.SpriteLibrary.getSprite('fred');
+    let test1 = new Maelstrom.Objects.Fred( );
 
     const tilemap = Maelstrom.Tilemap.getMap('Prototype');
 
     Maelstrom.Graphics.drawTilemap(tilemap, Maelstrom.Camera.projection( ));
 
-    const data = createSpriteDrawRequest(sprite, 0, 0, 16, 16, 0, Maelstrom.Camera.projection( ), [2, 1, 1, 1])
+    Maelstrom.Graphics.drawGameObject(test1, Maelstrom.Camera.projection( ));
 
-    Maelstrom.Graphics.drawTexture(data);
+    document.addEventListener('keydown', event => {
+        const key = event.key.toLowerCase( );
+        let draw = false;
+        if(key == 'arrowright') {
+            test1.x += 5; draw = true;
+        }
+        if(key == 'arrowleft') {
+            test1.x -= 5; draw = true;
+        }
+
+        if(key == 'arrowdown') {
+            test1.y += 5; 
+            draw = true;
+        }
+
+        if(key == 'arrowup') {
+            test1.y -= 5; 
+            draw = true;
+        }
+
+        if(draw) {
+            Maelstrom.Graphics.drawTilemap(tilemap, Maelstrom.Camera.projection( ));
+            Maelstrom.Graphics.drawGameObject(test1, Maelstrom.Camera.projection( ));
+        }
+    });
 
     /*
 

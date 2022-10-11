@@ -1,0 +1,1 @@
+export {Fred} from "./fred.js";

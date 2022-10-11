@@ -1,4 +1,4 @@
-import { createDrawRequest } from "../utils.js";
+import { createDrawRequest, createSpriteDrawRequest } from "../utils.js";
 import compileShaders from "./compile_shaders.js";
 
 let currentShader;
@@ -91,6 +91,12 @@ export function drawBackground(background, projection) {
         req = createDrawRequest(texture.texture, 0, 0, 0, 1280, 720, texMatrix, projection, [1, 1, 1, 1], true);
     }
     return drawTexture(req);
+}
+
+export function drawGameObject(g, projection) {
+    const req = createSpriteDrawRequest(g.sprite, g.currentCell.row, g.currentCell.column, g.x, g.y, g.z, projection);
+    console.log(req);
+    drawTexture(req);
 }
 
 export function drawTexture(data) {
