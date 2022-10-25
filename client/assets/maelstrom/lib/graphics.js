@@ -16,6 +16,13 @@ const attributeDefs = {
  * Private functions ======================================================
  *=========================================================================
  */
+const convertRotation = rotation => {
+    let ar = [...rotation.slice(0, 3), 180];
+    const degrees = ar.map(x => (x % 360));
+    const radians = degrees.map(x => (Math.PI * (x - 180)) / 180);
+    return radians;
+}
+
 const selectShader = name => {
     if(Maelstrom.Shaders[name] != currentShader) {
         currentShader = Maelstrom.Shaders[name];
@@ -94,8 +101,24 @@ export function drawBackground(background, projection) {
 }
 
 export function drawGameObject(g, projection) {
-    const req = createSpriteDrawRequest(g.sprite, g.currentCell.row, g.currentCell.column, g.x, g.y, g.z, projection);
-    console.log(req);
+    const req = {
+        texture: g.sprite.texture,
+        matrices: {
+            u_texMatrix: g.sprite.cellMatrix(g.currentCell.row, g.currentCell.column),
+            u_projection: projection,
+            u_transform: glMatrix.mat4.fromRotationTranslationScaleOrigin(
+                Maelstrom.Matrix.getMatrix( ), 
+                g.rotation.value,
+                [g.x, g.y, g.z], 
+                [g.width, g.height, 1],
+                [0.5, 0.5, 0]
+            )
+        },
+        tint: [1, 1, 1, 1],
+        repeat: false
+    }
+
+    console.log(req.matrices.u_transform)
     drawTexture(req);
 }
 

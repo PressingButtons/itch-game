@@ -13,6 +13,7 @@ export default class GameObject extends State {
     constructor(data) {
         super(data.name || 'gameobject');
         this.addDataView('velocity', {type: Float32Array, properties: ["x", "y", "z"]}, true);
+        this.addDataView('rotation', {type: Float32Array, properties: ['x', 'y', 'z', 'w']}, true);
         this.addDataView('size', {type: Uint16Array, properties: ["width", 'height']});
         this.addDataView('position', {type: Int16Array, properties: ['x', 'y', 'z']});
         this.addDataView('currentCell', {type: Uint16Array, properties: ['row', 'column']}, true);
@@ -47,7 +48,7 @@ export default class GameObject extends State {
     //
     #defineViewProperties(view, properties, name) {
         let t;
-        if(name) t = Object.defineProperty(this, name, {value: { }})[name];
+        if(name) t = Object.defineProperty(this, name, {value: {value: view}})[name];
         else t = this;
         for(let i = 0; i < properties.length; i++) {
             Object.defineProperty(t, properties[i], {

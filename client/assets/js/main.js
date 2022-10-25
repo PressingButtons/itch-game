@@ -1,3 +1,4 @@
+import Camera from '../../Arachnid/arachnid_object/camera.js';
 import '../maelstrom/maelstrom.js';
 import { createSpriteDrawRequest, createTilemapDrawRequest } from '../maelstrom/utils.js';
 
@@ -15,15 +16,20 @@ window.onload = async event => {
     document.addEventListener('keydown', event => {
         const key = event.key.toLowerCase( );
         let draw = false;
+        console.log(test1.rotation.y);
         if(key == 'arrowright') {
-            test1.x += 5; draw = true;
+            test1.rotation.y = 0;
+            test1.x += 5;
+            draw = true;
         }
         if(key == 'arrowleft') {
-            test1.x -= 5; draw = true;
+            test1.rotation.y = -Math.PI / 2;
+            test1.x -= 5;
+            draw = true;
         }
 
         if(key == 'arrowdown') {
-            test1.y += 5; 
+            test1.y += 5;
             draw = true;
         }
 
@@ -38,31 +44,6 @@ window.onload = async event => {
         }
     });
 
-    /*
-
-    const texture = await Maelstrom.Cache.loadTexture('characters/bo/bo.png');
-
-    Maelstrom.Tilemap.setMap("Prototype");
-
-    Maelstrom.Graphics.clear([0.5, 0.5, 0.5, 1.0])
-
-    Maelstrom.Graphics.drawTilemap(Maelstrom.Camera.projection);
-
-    Maelstrom.addEventListener(Maelstrom.Events.GLOBAL_INPUT_EVENT, onInput);
-
-}
-
-function onInput(event) {
-    if(!event.detail.value.value) return;
-    const key = event.detail.value.key;
-    if(key == 'right') Maelstrom.Camera.x -= 5;
-    if(key == 'left') Maelstrom.Camera.x += 5;
-    if(key == 'up') Maelstrom.Camera.y += 5;43
-    if(key == 'down') Maelstrom.Camera.y -= 5;
-    Maelstrom.Graphics.clear([0.5, 0.5, 0.5, 1.0])
-    Maelstrom.Graphics.drawTilemap(Maelstrom.Camera.projection);
-}
-
-*/
+    const cam = new Camera(null, [1280, 360]);
 
 }
