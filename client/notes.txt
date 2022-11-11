@@ -1,0 +1,10 @@
+//psuedo code text
+window loads
+    Maelstrom.preloads (over-arching system preload) 
+        define cache 
+            
+        compile Shaders - creates gl context as well
+            preload images/textures 
+        preload sounds (canplaythrough event)
+            cache sound library
+    
