@@ -1,0 +1,129 @@
+@charset "UTF-8";
+/** -------------------------------------------------------------------
+ ** Root
+ ** definition of root variables to be used throughout css
+ **-----------------------------------------------------------------**/
+:root {
+  --main-background: #202832;
+  --main-color: #FEA;
+  --main-font: Tahoma, sans-serif;
+  --panel-bg: #444;
+}
+
+/** -------------------------------------------------------------------
+ ** Elements
+ ** Handles all element definitions prior to class/id definitions
+ **-----------------------------------------------------------------**/
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: var(--main-background);
+  font-family: var(--main-font);
+  color: var(--main-color);
+}
+
+div, section {
+  box-sizing: border-box;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  display: flex;
+}
+
+.app > div {
+  background-color: var(--panel-bg);
+  margin: 3px;
+}
+
+.app, .workspace, .panels {
+  box-sizing: border-box;
+}
+
+.workspace, .panels {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.workspace {
+  flex: 1;
+}
+
+.panels {
+  width: 340px;
+}
+
+/** -------------------------------------------------------------------
+ ** Timeline 
+ ** Horizontal Dom composition
+ ** 3 rows.
+ **-----------------------------------------------------------------**/
+.timeline-wrapper {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+}
+.timeline-wrapper .timeline {
+  position: relative;
+  max-width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.timeline-wrapper .timeline .timeline-editor-buttons, .timeline-wrapper .timeline .timeline-media-buttons {
+  display: flex;
+  padding: 4px;
+}
+.timeline-wrapper .timeline .timeline-editor-buttons button, .timeline-wrapper .timeline .timeline-media-buttons button {
+  min-width: 30px;
+  margin-left: 4px;
+}
+.timeline-wrapper .timeline .timeline-media-buttons #timeline-first:before {
+  content: "⏮";
+}
+.timeline-wrapper .timeline .timeline-media-buttons #timeline-prev:before {
+  content: "〈";
+}
+.timeline-wrapper .timeline .timeline-media-buttons #timeline-play:before {
+  content: "⏵";
+}
+.timeline-wrapper .timeline .timeline-media-buttons #timeline-next:before {
+  content: "〉";
+}
+.timeline-wrapper .timeline .timeline-media-buttons #timeline-last:before {
+  content: "⏭";
+}
+.timeline-wrapper .timeline .timeline-rail {
+  margin-top: 6px;
+  height: 200px;
+  width: 100%;
+  overflow-x: auto;
+  background-color: black;
+  display: flex;
+}
+.timeline-wrapper .timeline .timeline-rail .timeline-frame-wrapper {
+  width: 200px;
+}
+.timeline-wrapper .timeline .timeline-rail .timeline-frame-wrapper .timeline-frame {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.timeline-wrapper .timeline .timeline-rail .timeline-frame-wrapper .timeline-frame section {
+  margin: 1px;
+  background-color: #333;
+  display: flex;
+  p-padding: 1px;
+}
+.timeline-wrapper .timeline .timeline-rail .timeline-frame-wrapper .timeline-frame section canvas {
+  max-width: 100px;
+  max-height: 100px;
+  background-color: white;
+}
+
+/*# sourceMappingURL=style.css.map */

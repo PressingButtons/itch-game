@@ -1,50 +1,32 @@
-import './Maelstrom/malestrom.js';
+import './Arachnid/arachnid.js';
+import Maelstrom from './Maelstrom/maelstrom.js';
 
 
 window.onload = async event => {
-
-    await Maelstrom.init( );
-
-    let fred = Maelstrom.createActor('fred');
-
-    let pc = Maelstrom.createActor('vivian');
-
-    Maelstrom.createWorld( );
-
-    Maelstrom.world.addObject(fred);
-    Maelstrom.world.addObject(pc);
-
-    Maelstrom.world.draw( );
-
-    const FPS = 1/60;
-
-    const gamepad = Maelstrom.getGamepad(0);
-
-    //Maelstrom.debugMenu(true);
-
-    const it = setInterval(( ) => {
+   await Maelstrom.init(document.getElementById('gameview'), {premultipliedAlpha: false});
+   const ortho = glMatrix.mat4.ortho(glMatrix.mat4.create( ), 0, 1280, 720, 0, 1, -1);
+   const config = {
+       name: "dusk wulv",
+       sprite: Maelstrom.Resources.getSprite("dusker_wulv"),
+       size: [64, 64],
+   }
+   const go = new Arachnid.GameObject(config);
+   go.x += 120;
+   go.y += 120;
 
 
-        if(gamepad.Left) {
-            pc.rotation.y = Math.PI;
-            pc.x -= 3;
-            pc.setCurrentFrame(1);
-        } else if(gamepad.Right) {
-            pc.rotation.y = 0;
-            pc.x += 3;
-            pc.setCurrentFrame(1);
-        } else {
-            pc.setCurrentFrame(0);
-        }
+   const renderTest = dt => {
+        const controls = Maelstrom.keyboard( );
 
-        if(gamepad.Down) 
-            pc.y += 3;
+        if(controls.Up) go.y -= 5;
+        if(controls.Down) go.y += 5;
 
-        if(gamepad.Up) 
-            pc.y -= 3;
+        if(controls.Right) go.x += 5;
+        if(controls.Left) go.x -= 5;
 
-        Maelstrom.world.draw( );
+        Maelstrom.Render.gameObject(go, ortho);
+   }
 
-    }, FPS)
+   Maelstrom.runMethod(renderTest);
 
 }

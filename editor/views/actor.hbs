@@ -1,0 +1,97 @@
+{{>header}}
+
+<div class="actor workspace" id="actor_workspace">
+    {{>work_panel}}
+    <div class="actor panel">
+        <section>
+            <header><h2>Actor Details</h2></header>
+            <div class="desc">
+                <p>Actor Name</p>
+                <p id="actor_name"></p>
+            </div>
+            <div class="desc">
+                <p>Actor Width</p>
+                <p id="actor_width"></p>
+                <input type="text" pattern="[0-9]{1,3}" id="actor_width">
+            </div>
+            <div class="desc">
+                <p>Actor Height</p>
+                <input type="text" pattern="[0-9]{1,3}" id="actor_width">
+            </div>
+            <div class="desc">
+                <p>Sprite Cropping</p>
+                <div class="box">
+                    <div>
+                        <p>x</p>
+                        <input type="text" pattern="[0-9]{1,3}" id="sprite_crop_x" placeholder="x">
+                    </div>
+                    <div>
+                        <p>y</p>
+                        <input type="text" pattern="[0-9]{1,3}" id="sprite_crop_y" placeholder="y">
+                    </div>
+                    <div>
+                        <p>width</p>
+                        <input type="text" pattern="[0-9]{1,3}" id="sprite_crop_width" placeholder="width">
+                    </div>
+                    <div>
+                        <p>height</p>
+                        <input type="text" pattern="[0-9]{1,3}" id="sprite_crop_height" placeholder="height">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <header>
+                <h2>Animations</h2>
+            </header>
+            <button id="create_animation_button">Create Animation</button>
+            <ul id="animation_list"></ul>
+        </section>
+        <section>
+            <header>
+                <h2>Frame Configuration</h2>
+            </header>
+            <div class="desc">
+                <p>Cell Index</p>
+                <input type="number">
+            </div>
+            <div class="desc">
+                <p>Duration</p>
+                <input type="text" name="frame_duration" id="frame_duration" pattern="[0-9]{1,4}">
+            </div>
+            <div class="desc">
+                <p>Body Rectangle</p>
+                <div class="box">
+                    <div>
+                        <p>x</p>
+                        <input type="text" pattern="[0-9]{1,4}" id="body_x">
+                    </div>
+                    <div>
+                        <p>y</p>
+                        <input type="text" pattern="[0-9]{1,4}" id="body_y">
+                    </div>
+                    <div>
+                        <p>width</p>
+                        <input type="text" pattern="[0-9]{1,4}" id="body_w">
+                    </div>
+                    <div>
+                        <p>height</p>
+                        <input type="text" pattern="[0-9]{1,4}" id="body_h">
+                    </div>
+                </div>
+            </div>
+            <section class="list">
+                <header>
+                    <h3>Hit Zones</h3>
+                </header>
+                <ul></ul>
+            </section>
+              <section class="list">
+                <header>
+                    <h3>Hurt Zones</h3>
+                </header>
+                <ul></ul>
+            </section>
+        </section>
+    </div>
+</div>

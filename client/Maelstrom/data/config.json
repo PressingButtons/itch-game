@@ -10,5 +10,10 @@
     "preload": {
         "map_source": { "type": "image", "url": "./assets/stage/map.webp"},
         "tiles" : { "type": "image", "url": "./assets/stage/tiles.webp"}
+    },
+    "textures": {
+    },
+    "sprites" : {
+        "dusker_wulv": {"texture": "/assets/characters/duskwulv/duskwulv.webp", "width": 64, "height": 64}
     }
 }

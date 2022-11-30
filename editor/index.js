@@ -25,8 +25,12 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {script: "main"});
 });
+
+app.get('/animations', (req, res) => {
+  res.render('animation', {script: "animation/main"})
+})
 
 const onlisten = err => {
   if( err ) throw err;

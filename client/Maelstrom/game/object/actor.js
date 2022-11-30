@@ -22,7 +22,6 @@ export default class Actor extends GameObject {
         this.bindParamter('tint');
         this.setTint(255, 255, 255, 255);  
         this.#sprite = sprite;
-        this.#animations = new Animator(config.animations);
     }
 
     get texture( ) {
@@ -33,8 +32,18 @@ export default class Actor extends GameObject {
         return this.getFrameTransform(this.#current_frame);
     }
 
+    #setAnimations(animations) {
+    
+        this.#animations = new Animator(config.animations);
+
+    }
+
     animate(name) {
         this.#animations.play(name);
+    }
+
+    setAnimation( ) {
+
     }
 
     setTint(r, g, b, a) {
@@ -61,6 +70,7 @@ export default class Actor extends GameObject {
 
     onUpdate(dt) {
         this.#animations.update(dt);
+        this.#current_frame = this.#animations.current_cell;
     }
 
 }

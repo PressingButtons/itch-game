@@ -1,0 +1,90 @@
+/** -------------------------------------------------------------------
+ ** Timeline 
+ ** Horizontal Dom composition
+ ** 3 rows.
+ **-----------------------------------------------------------------**/
+
+ .timeline-wrapper {
+
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+
+    .timeline {
+        position: relative;
+        max-width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+
+        .timeline-editor-buttons, .timeline-media-buttons {
+            display: flex;
+            padding: 4px;
+            button {
+                min-width: 30px;
+                margin-left: 4px;
+            }
+        }
+
+        .timeline-media-buttons {
+
+            #timeline-first:before {
+                content: '\23EE';
+            }
+
+            #timeline-prev:before {
+                content: '\2329';
+            }
+
+            #timeline-play:before {
+                content: '\23F5';
+            }
+
+            #timeline-next:before {
+                content: '\232a'
+            }
+
+            #timeline-last:before {
+                content: '\23ED'
+            }
+
+        }
+
+        .timeline-rail {
+            margin-top: 6px;
+            height: 200px;
+            width: 100%;
+            overflow-x: auto;
+            background-color: black;
+            display: flex;
+
+            .timeline-frame-wrapper {
+                width: 200px;
+                .timeline-frame {
+                    display: flex;
+                    flex-flow: column nowrap;
+
+                    section {
+                        margin: 1px;
+                        background-color: #333;
+                        display: flex;
+                        canvas {
+                            max-width: 100px;
+                            max-height: 100px;
+                            background-color: white;
+                        }
+
+                        p: {
+                            padding: 1px;
+                        }
+
+                    }
+
+                }
+
+            }
+        
+        }
+
+    }
+
+ }

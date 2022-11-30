@@ -1,6 +1,4 @@
-import State from "../../../Arachnid/arachnid_object/state.js";
-
-export default class GPController extends State {
+export default class GPController extends Arachnid.State {
 
     static DEFAULT_LAYOUT = {
         up: 12,
@@ -33,7 +31,6 @@ export default class GPController extends State {
 
     get Right( ) {
         return (this.#src.buttons[this.#config.right].value > this.#config.left_deadzone|| this.#src.axes[0] > this.#config.left_deadzone);
-
     }
 
 

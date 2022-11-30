@@ -1,0 +1,14 @@
+{
+    "name": "Vivian",
+    "width": 96,
+    "height": 96,
+    "animations": {
+        "idle": {
+            "frames": [
+                {"index": 0, "duration": 0}
+            ],
+            "onFrame": { }
+        }
+        
+    }
+}
