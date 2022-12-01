@@ -14,7 +14,14 @@ const loop = timestamp => {
 
 const updateMethods = dt => {
     const it = runList.values( );
-    for(const method of it) method(dt);
+    for(const method of it) {
+        try {
+            method(dt);
+        } catch (err) {
+            console.error(err);
+            stop( );
+        }
+    }
 }
 
 export function add(func) {

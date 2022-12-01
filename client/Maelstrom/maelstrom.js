@@ -2,6 +2,7 @@ import * as Resources from './game/resource.js';
 import * as Render from './game/render.js';
 import * as Runner from './system/runner.js';
 import * as InputManager from './game/input/manager.js';
+import * as Physics from './system/physics.js';
 
 let Graphics, GameConfig;
 
@@ -11,6 +12,7 @@ const initGraphics = async (canvas) => {
     Graphics = new Arachnid.GraphicsGL(canvas, {premultipliedAlpha: false});
     const shaderDetails = await fetch('/arachnid/shaders/config.json').then(response => response.json( ));
     await Graphics.compileShaders(shaderDetails);
+    Maelstrom.setResolution(1280, 720);
 };
 
 const initRender = ( ) => {
@@ -57,5 +59,11 @@ Maelstrom.runMethod = method => {
     Runner.add(method);
 }
 
+Maelstrom.setResolution = (width, height) => {
+    Graphics.gl.canvas.width = width;
+    Graphics.gl.canvas.height = height;
+}
+
+Maelstrom.Physics = Physics;
 
 export default Maelstrom;
